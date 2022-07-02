@@ -75,7 +75,7 @@ func ViewHeaders(w http.ResponseWriter, r *http.Request) {
 		if headerName == "" {
 			headerName += k
 		} else {
-			headerName += (" + " + k)
+			headerName += ("+" + k)
 		}
 
 		intValue, err := strconv.Atoi(v[0])
