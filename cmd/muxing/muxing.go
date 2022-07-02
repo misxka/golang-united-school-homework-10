@@ -65,26 +65,17 @@ func ViewData(w http.ResponseWriter, r *http.Request) {
 }
 
 func ViewHeaders(w http.ResponseWriter, r *http.Request) {
-	headers := r.Header
-
-	headerName := ""
-	headerValue := ""
-	total := 0
-
-	for k, v := range headers {
-		if headerName == "" {
-			headerName += k
-		} else {
-			headerName += ("+" + k)
-		}
-
-		intValue, err := strconv.Atoi(v[0])
-		if err == nil {
-			total += intValue
-		}
+	valueA, errA := strconv.Atoi(r.Header.Get("A"))
+	if errA != nil {
+		panic(errA)
+	}
+	valueB, errB := strconv.Atoi(r.Header.Get("B"))
+	if errB != nil {
+		panic(errB)
 	}
 
-	headerValue = strconv.Itoa(total)
-	w.Header().Set(strings.ToLower(headerName), headerValue)
+	headerName := "a+b"
+
+	w.Header().Set(strings.ToLower(headerName), strconv.Itoa(valueA+valueB))
 	return
 }
